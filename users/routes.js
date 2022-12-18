@@ -34,14 +34,15 @@ const requestHandler = (req, res) => {
             body.push(chunk);
         });
 
-        return req.on('end', () => {
+        req.on('end', () => {
             const parsedBody = Buffer.concat(body).toString();
             const userName = parsedBody.split('=')[1];
             console.log(userName);
-            res.statusCode = 302;
-            res.setHeader('location', '/')
-            return res.end();
         });
+
+        res.statusCode = 302;
+        res.setHeader('location', '/')
+        return res.end();
     }
 
 
